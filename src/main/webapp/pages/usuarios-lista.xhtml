@@ -1,0 +1,80 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Lista de Usuários</ui:define>
+	<ui:define name="content">
+		<h:form id="form-table-usuarios">
+			<div class="p-d-flex p-jc-center p-p-4">
+				<p:card>
+					<f:facet name="title">
+        Usuários
+    </f:facet>
+					<p:messages id="messages" showIcon="false" />
+					<p:toolbar>
+						<p:toolbarGroup>
+							<p:commandButton value="Adicionar" icon="pi pi-plus"
+								actionListener="#{usuarioController.novoCadastro}"
+								update="form-dialog-cadastro" process="@this"
+								oncomplete="PF('usuarioDialog').show()"
+								styleClass="ui-button-success" style="margin-right: .5rem">
+							</p:commandButton>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:dataTable id="dt-usuarios"
+						value="#{usuarioController.usuariosLazy}" widgetVar="dtUsuarios"
+						var="usuario" stripedRows="true" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,10,15" paginator="true" rows="10"
+						rowKey="#{usuario.id}" lazy="true">
+						<p:column headerText="Nome">
+							<h:outputText value="#{usuario.nome}" />
+						</p:column>
+						<p:column headerText="Email">
+							<h:outputText value="#{usuario.email}" />
+						</p:column>
+
+						<p:column exportable="false">
+							<p:tooltip value="Alterar" for="editar-btn" />
+							<p:commandButton class="ui-button-warning rounded-button"
+								id="editar-btn" icon="pi pi-pencil" process="@this"
+								update="form-dialog-cadastro"
+								oncomplete="PF('usuarioDialog').show()">
+								<f:setPropertyActionListener value="#{usuario}"
+									target="#{usuarioController.usuarioSelecionado}" />
+							</p:commandButton>
+
+							<p:tooltip value="Remover" for="remover-btn" />
+							<p:commandButton class="ui-button-danger rounded-button"
+								id="remover-btn" icon="pi pi-trash" process="@this"
+								oncomplete="PF('excluirCadastroDialog').show()">
+								<f:setPropertyActionListener value="#{usuario}"
+									target="#{usuarioController.usuarioSelecionado}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</p:card>
+
+
+
+				<p:confirmDialog widgetVar="excluirCadastroDialog" showEffect="fade"
+					width="300" message="Deseja realmente remover o usuário?"
+					header="Confirmação" severity="warn">
+					<p:commandButton value="Sim" icon="pi pi-check"
+						actionListener="#{usuarioController.removerCadastro}"
+						process="@this" update="form-table-usuarios:dt-usuarios"
+						oncomplete="PF('excluirCadastroDialog').hide()" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-button-secondary" icon="pi pi-times"
+						onclick="PF('excluirCadastroDialog').hide()" />
+				</p:confirmDialog>
+			</div>
+		</h:form>
+
+		<ui:include src="/WEB-INF/dialogs/dlg-usuario-cadastro.xhtml" />
+		<ui:include src="/WEB-INF/dialogs/dlg-usuario-telefone.xhtml" />
+	</ui:define>
+</ui:composition>

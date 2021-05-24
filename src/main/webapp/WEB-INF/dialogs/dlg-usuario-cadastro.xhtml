@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:form id="form-dialog-cadastro">
+		<p:dialog showEffect="fade" modal="true" width="800"
+			widgetVar="usuarioDialog" responsive="true">
+			<f:facet name="header">
+				<h:outputText
+					value="#{usuarioController.usuarioSelecionado.id != null ? 'Alterar Usuário' : 'Novo Usuário'}" />
+			</f:facet>
+			<p:outputPanel id="usuario-content" class="ui-fluid">
+				<p:messages />
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field p-col">
+						<label for="nome">Nome</label>
+						<p:inputText id="nome" type="text"
+							value="#{usuarioController.usuarioSelecionado.nome}" />
+					</div>
+					<div class="p-field p-col">
+						<label for="email">Email</label>
+						<p:inputText id="email" type="text"
+							value="#{usuarioController.usuarioSelecionado.email}" />
+					</div>
+					<p:outputPanel
+						rendered="#{usuarioController.usuarioSelecionado.id == null}"
+						layout="inline">
+						<div class="p-field p-col">
+							<label for="senha">Senha</label>
+							<p:password id="senha"
+								value="#{cadastroController.usuario.senha}" />
+						</div>
+					</p:outputPanel>
+
+				</div>
+				<p:fieldset legend="Telefones">
+
+					<p:toolbar>
+						<p:toolbarGroup>
+							<p:commandButton value="Adicionar" icon="pi pi-plus"
+								actionListener="#{usuarioController.novoTelefone}" update=""
+								process="@this" oncomplete="PF('telefoneDialog').show()"
+								styleClass="ui-button-success" style="margin-right: .5rem">
+							</p:commandButton>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:dataTable id="dt-telefone" widgetVar="dtTelefone" var="telefone"
+						value="#{usuarioController.usuarioSelecionado.telefones}"
+						emptyMessage="Nenhum telefone adicionado." reflow="true"
+						rowKey="#{telefone.id}" scrollable="true" scrollHeight="250"
+						paginator="true" rows="10" rowSelectMode="add"
+						paginatorPosition="bottom">
+
+						<p:column headerText="Tipo" sortBy="#{telefone.tipo}">
+							<h:outputText value="#{telefone.tipo}" />
+						</p:column>
+
+						<p:column headerText="DDD" sortBy="#{telefone.ddd}">
+							<h:outputText value="#{telefone.ddd}" />
+						</p:column>
+
+						<p:column headerText="Tipo" sortBy="#{telefone.numero}">
+							<h:outputText value="#{telefone.numero}" />
+						</p:column>
+
+						<p:column exportable="false">
+							<p:tooltip value="Remover" for="remover-btn" />
+							<p:commandButton class="ui-button-warning rounded-button"
+								id="remover-btn" icon="pi pi-trash" process="@this"
+								oncomplete="PF('excluirTelefoneDialog').show()">
+								<f:setPropertyActionListener value="#{telefone}"
+									target="#{usuarioController.telefoneSelecionado}" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+				</p:fieldset>
+
+				<div class="p-field p-mt-2">
+					<p:commandButton
+						value="#{usuarioController.usuarioSelecionado.id == null ? 'Salvar' : 'Alterar'}"
+						action="#{usuarioController.manterCadastro()}"
+						update="form-table-usuarios" process="@form"
+						oncomplete="PF('usuarioDialog').hide()" />
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:confirmDialog widgetVar="excluirTelefoneDialog" showEffect="fade"
+			width="300" message="Remover o telefone?" header="Confirmar"
+			severity="warn">
+			<p:commandButton value="Sim" icon="pi pi-check"
+				actionListener="#{usuarioController.removerTelefone}"
+				process="@this" update="form-dialog-cadastro:dt-telefone"
+				oncomplete="PF('excluirTelefoneDialog').hide()" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-button-secondary" icon="pi pi-times"
+				onclick="PF('excluirTelefoneDialog').hide()" />
+		</p:confirmDialog>
+	</h:form>
+</ui:composition>

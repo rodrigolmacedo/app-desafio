@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<div class="card">
+		<h:form>
+
+			<p:menubar>
+				<p:menuitem value="Cadastro" icon="pi pi-user-plus"
+					outcome="/cadastro.xhtml"
+					rendered="#{loginController.usuarioLogado == null}" />
+
+				<p:menuitem value="Acesso" icon="pi pi-sign-in"
+					outcome="/login.xhtml"
+					rendered="#{loginController.usuarioLogado == null}" />
+
+				<p:menuitem value="Início" icon="pi pi-home"
+					outcome="/pages/index.xhtml"
+					rendered="#{loginController.usuarioLogado != null}" />
+				<p:submenu label="Usuários" icon="pi pi-fw pi-user"
+					rendered="#{loginController.usuarioLogado != null}">
+					<p:menuitem value="Listar" icon="pi pi-fw pi-bars" outcome="/pages/usuarios-lista.xhtml" />
+				</p:submenu>
+
+
+				<p:divider layout="vertical" />
+
+
+				<f:facet name="options">
+					<p:outputPanel rendered="#{loginController.usuarioLogado != null}" layout="inline">
+						<span> Olá, <h:outputLabel
+								style="text-transform: uppercase;"
+								value="#{loginController.usuarioLogado.nome}" />
+						</span>
+					</p:outputPanel>
+					<p:commandButton value="Sair" icon="pi pi-fw pi-sign-out"
+						rendered="#{loginController.usuarioLogado != null}"
+						action="#{loginController.logout()}" update="@form" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+</ui:composition>

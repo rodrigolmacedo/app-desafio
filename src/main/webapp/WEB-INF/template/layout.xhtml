@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" lang="pt_BR">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+	</f:facet>
+	<title><ui:insert name="titulo">Desafio</ui:insert></title>
+
+	<h:outputStylesheet library="css" name="primeflex.min.css" />
+	<h:outputStylesheet library="css" name="meu.css" />
+	<ui:insert name="head"></ui:insert>
+</h:head>
+
+<h:body>
+	
+	<p:ajaxStatus styleClass="ajax-status">
+		<f:facet name="start">
+			<div id="div-load">
+				<div style="display:flex; justify-content:center;margin-top:15%;">
+					<em class="pi pi-spin pi-spinner" style="font-size: 5rem; color:lightcoral;"></em>
+				</div>
+			</div>
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+	<header>
+		<ui:include src="/WEB-INF/menu.xhtml" />
+	</header>
+
+	<section class="content">
+		<ui:insert name="content" />
+	</section>
+
+
+</h:body>
+</html>

@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:form id="form-dialog-telefone">
+		<p:dialog header="Novo Telefone" showEffect="fade" modal="true"
+			widgetVar="telefoneDialog" responsive="true">
+			<p:outputPanel id="telefone-content" class="ui-fluid">
+				<p:messages />
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field p-col">
+						<p:outputLabel for="@next" value="Tipo" />
+						<p:selectOneMenu id="telefone-tipo"
+							value="#{usuarioController.telefoneSelecionado.tipo}">
+							<f:selectItem itemLabel="Móvel" itemValue="Móvel" />
+							<f:selectItem itemLabel="Fixo" itemValue="Fixo" />
+						</p:selectOneMenu>
+					</div>
+					<div class="p-field p-col">
+						<p:outputLabel for="@next" value="DDD" />
+						<p:inputMask id="ddd" value="#{usuarioController.telefoneSelecionado.ddd}"
+							mask="99" validateMask="true" />
+					</div>
+					<div class="p-field p-col">
+						<p:outputLabel for="@next" value="Número" />
+						<p:inputMask id="telefone"
+							value="#{usuarioController.telefoneSelecionado.numero}" mask="999999999"
+							validateMask="true" />
+					</div>
+				</div>
+			</p:outputPanel>
+
+			<f:facet name="footer">
+				<p:commandButton value="Inserir" icon="pi pi-check"
+					actionListener="#{usuarioController.adicionarTelefone}"
+					update="telefone-content form-dialog-cadastro:dt-telefone"
+					process="telefone-content @this" />
+				<p:commandButton value="Fechar" icon="pi pi-times"
+					onclick="PF('telefoneDialog').hide()" class="ui-button-secondary" />
+			</f:facet>
+
+		</p:dialog>
+
+		<p:confirmDialog widgetVar="excluirTelefoneDialog" showEffect="fade"
+			width="300" message="Remover o telefone?" header="Confirmar"
+			severity="warn">
+			<p:commandButton value="Sim" icon="pi pi-check"
+				actionListener="#{usuarioController.removerTelefone}"
+				process="@this" update="form-dialog-cadastro:dt-telefone"
+				oncomplete="PF('excluirTelefoneDialog').hide()" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-button-secondary" icon="pi pi-times"
+				onclick="PF('excluirTelefoneDialog').hide()" />
+		</p:confirmDialog>
+	</h:form>
+</ui:composition>

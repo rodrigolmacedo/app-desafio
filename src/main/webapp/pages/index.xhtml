@@ -1,12 +1,19 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-    </h:head>
-
-    <h:body>
-        <p:spinner />
-    </h:body>
-</html>
+	<ui:define name="titulo">Home</ui:define>
+	<ui:define name="content">
+		<div class="p-d-flex p-jc-center p-p-4">
+			<p:card style="width: 25rem; margin-bottom: 2em">
+			<p:link outcome="/pages/usuarios-lista.xhtml">
+				Usuários cadastrados #<h:outputText value="#{usuarioController.quantidadeUsuariosCadastrados}" />
+				</p:link>				
+			</p:card>
+		</div>
+		
+	</ui:define>
+</ui:composition>

@@ -8,9 +8,11 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:jboss/datasources/desafio</jta-data-source>
 
+		<class>desafio.model.Telefone</class>
+		<class>desafio.model.Usuario</class>
 
 		<properties>
-			<property name="hibernate.hbm2ddl.auto" value="none" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.connection.autocommit"
 				value="false" />

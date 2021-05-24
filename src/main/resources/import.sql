@@ -1,0 +1,3 @@
+insert into Usuario (nome, email, senha) values('Aparecida Tania Julia Barbosa', 'aparecidataniajuliabarbosa_@octagonbrasil.com.br', '$2a$10$/JxCfPpc2a2K1CA6IQTxc.CKz.ZE2aecMW91s9mA5T.QdIK1rXgA6');
+insert into Usuario (nome, email, senha) values('Ruan Luan Mario Corte Real', 'ruanluanmariocortereal.ruanluanmariocortereal@almaquinas.com.br', '$2a$10$/JxCfPpc2a2K1CA6IQTxc.CKz.ZE2aecMW91s9mA5T.QdIK1rXgA6');
+insert into Usuario (nome, email, senha) values('Kevin Ian Ribeiro', 'kevinianribeiro-89@achievecidadenova.com.br', '$2a$10$/JxCfPpc2a2K1CA6IQTxc.CKz.ZE2aecMW91s9mA5T.QdIK1rXgA6');

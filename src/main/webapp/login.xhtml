@@ -1,0 +1,45 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Página de Acesso</ui:define>
+	<ui:define name="content">
+		<div class="p-d-flex p-jc-center p-p-4">
+			<p:card style="width: 25rem; margin-bottom: 2em">
+				<f:facet name="title">
+        Painel de Acesso
+    </f:facet>
+				<h:form>
+					<p:messages id="messages" showDetail="false" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+
+					<div class="ui-fluid">
+						<div class="p-field">
+							<label for="email">Email</label>
+							<p:inputText id="email" value="#{loginController.usuario.email}"
+							 required="true" requiredMessage="Necessário informar o email"
+								type="email" />
+
+						</div>
+						<div class="p-field">
+							<label for="senha">Senha</label>
+							<p:password id="senha" value="#{loginController.usuario.senha}"
+							 required="true" requiredMessage="Necessário informar a senha" />
+						</div>
+						<div class="p-field">
+							<p:commandButton value="Acessar"
+								action="#{loginController.logar()}" update="@form" />
+						</div>
+						<div class="p-field p-jc-center">
+							<p:link outcome="/cadastro.xhtml" value="Não é cadastrado?" styleClass="mt" />
+						</div>
+					</div>
+				</h:form>
+			</p:card>
+		</div>
+	</ui:define>
+</ui:composition>
