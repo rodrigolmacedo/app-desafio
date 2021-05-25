@@ -1,14 +1,11 @@
 package desafio.controller;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.lang.reflect.Method;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -40,35 +37,35 @@ class UsuarioControllerTest {
 		controller.init();
 	}
 
-	@Test
-	void testNovoCadastro() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testNovoTelefone() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testRemoverCadastro() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testManterCadastro() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testRemoverTelefone() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testAdicionarTelefone() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testNovoCadastro() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testNovoTelefone() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testRemoverCadastro() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testManterCadastro() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testRemoverTelefone() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testAdicionarTelefone() {
+//		fail("Not yet implemented");
+//	}
 
 	// necessário para mockar o facesContext
 	public void mockFacesContext() {
