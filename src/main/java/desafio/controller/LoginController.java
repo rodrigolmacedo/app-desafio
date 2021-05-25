@@ -1,6 +1,7 @@
 package desafio.controller;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -32,6 +33,7 @@ public class LoginController implements Serializable {
 
 	public String logar() {
 		try {
+			Objects.requireNonNull(usuario);
 			service.login(usuario);
 			return "/pages/index.xhtml?faces-redirect=true";
 		} catch (Exception e) {

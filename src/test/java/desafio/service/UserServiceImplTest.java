@@ -35,9 +35,6 @@ class UserServiceImplTest {
 	@InjectMocks
 	private UserServiceImpl service;
 
-	
-	
-
 	@Test
 	void deveRetornarUmaListaDeUsuarios() {
 
@@ -65,18 +62,17 @@ class UserServiceImplTest {
 
 		assertSame(quantidadeUsuariosCadastrados.get(), quantidadeDeRegistrosARetornar);
 	}
-	
+
 	@Test
 	void deveSalvarUmUsuario() {
 		Usuario usuario = new Usuario("Fulano", "eu@gmail.com", "123456", new ArrayList<>());
 		Mockito.when(repository.manter(Mockito.any())).thenReturn(usuario);
-		
+
 		Optional<Usuario> manter = service.manter(usuario);
-		
+
 		assertSame(usuario, manter.get());
 
 	}
-	
 
 	@Test
 	void deveRealizarOLoginCorretamente() {
@@ -89,7 +85,7 @@ class UserServiceImplTest {
 		assertDoesNotThrow(() -> service.login(usuarioLogin));
 
 	}
-	
+
 	@Test
 	void naoDeveRealizarOLoginCorretamente() {
 		String senhaHash = BCrypt.hashpw("123456", BCrypt.gensalt());
@@ -99,15 +95,14 @@ class UserServiceImplTest {
 		assertThrows(UsuarioInvalidoException.class, () -> service.login(usuarioLogin));
 
 	}
-	
-	//necessário para mockar o facesContext
+
+	// necessário para mockar o facesContext
 	public void mockFacesContext() {
 
 		// Use Mockito to make our Mocked FacesContext look more like a real one
 		// while making it returns other Mocked objects
 		ExternalContext externalContext = Mockito.mock(ExternalContext.class);
-		FacesContext facesContext = Mockito.mock(FacesContext.class);
-		Mockito.when(facesContext.getExternalContext()).thenReturn(externalContext);
+		Mockito.when(context.getExternalContext()).thenReturn(externalContext);
 
 		// Use Java reflection to set the FacesContext to our Mock, since
 		// FacesContext.setCurrentInstance() is protected.
@@ -115,7 +110,7 @@ class UserServiceImplTest {
 			Method setter = FacesContext.class.getDeclaredMethod("setCurrentInstance",
 					new Class[] { FacesContext.class });
 			setter.setAccessible(true);
-			setter.invoke(null, new Object[] { facesContext });
+			setter.invoke(null, new Object[] { context });
 		} catch (Exception e) {
 			System.err.println("Exception in reflection-based access to FacesContext");
 			e.printStackTrace();
