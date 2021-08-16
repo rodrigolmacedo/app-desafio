@@ -29,4 +29,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "app-desafio-sfz" #Must be unique in Heroku
           heroku_email: "rodrigolima.18@hotmail.com"
-          buildpack: "https://github.com/mortenterhart/heroku-buildpack-wildfly.git"
+          buildpack: "buildpack https://github.com/heroku/heroku-buildpack-java.git"
